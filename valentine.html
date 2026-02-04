@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine, Srishti 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(-45deg,#ee7752,#e73c7e,#23a6d5,#23d5ab);
+background-size:400% 400%;
+animation:gradientShift 15s ease infinite;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+@keyframes gradientShift{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+.container{
+background:rgba(255,255,255,0.96);
+padding:50px;
+border-radius:35px;
+text-align:center;
+max-width:650px;
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+}
+
+h1{
+font-family:'Pacifico',cursive;
+font-size:42px;
+color:#e91e63;
+margin-bottom:15px;
+}
+
+button{
+padding:16px 40px;
+font-size:20px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+margin:10px;
+}
+
+#yesBtn{background:#ff5fa2;color:white}
+#noBtn{background:#ccc;position:absolute}
+
+.hidden{display:none}
+
+/* 🎁 Gift Cards */
+.gifts{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.gift{
+background:#ffe4ec;
+padding:20px;
+border-radius:20px;
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+}
+
+.gift:hover{
+transform:scale(1.08);
+background:#ffb6c1;
+}
+
+/* ❤️ Hearts */
+.heart{
+position:absolute;
+font-size:20px;
+animation:floatUp 5s linear infinite;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(100vh);opacity:1}
+100%{transform:translateY(-10vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+<source src="romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+<!-- QUESTION -->
+<div id="question">
+<h1>Hey Srishti 💖</h1>
+<p style="font-size:24px;font-weight:600">Will you be my Valentine?</p>
+<button id="yesBtn">Yes 💕</button>
+<button id="noBtn">No 😅</button>
+<p id="msg" style="margin-top:15px;color:#e91e63;font-weight:600"></p>
+</div>
+
+<!-- GIFTS -->
+<div id="giftSection" class="hidden">
+<h1>Choose your gift 🎁</h1>
+<div class="gifts">
+<div class="gift" onclick="selectGift('Chocolate 🍫')">Chocolate 🍫</div>
+<div class="gift" onclick="selectGift('Teddy 🧸')">Teddy 🧸</div>
+<div class="gift" onclick="selectGift('Long Hug 🤗')">Long Hug 🤗</div>
+<div class="gift" onclick="selectGift('Surprise Date 💑')">Surprise Date 💑</div>
+</div>
+</div>
+
+<!-- PROMISE -->
+<div id="promiseSection" class="hidden">
+<h1>One small promise 💌</h1>
+<p style="font-size:18px">
+I promise to make you smile,  
+annoy you sometimes 😅  
+but always choose you 💖
+</p>
+<button onclick="finalScreen()">Aww 🥺</button>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="hidden">
+<h1>Happy Valentine Srishti 💕</h1>
+<p>You are special. Always will be 😌💖</p>
+</div>
+
+</div>
+
+<script>
+const yes=document.getElementById("yesBtn");
+const no=document.getElementById("noBtn");
+const msg=document.getElementById("msg");
+const music=document.getElementById("bgMusic");
+
+let count=0;
+const texts=[
+"Think again 😏",
+"Pleaseeee 🥺",
+"You know you want to 😌",
+"Heart says YES 💖"
+];
+
+function startMusic(){
+music.volume=0.4;
+music.play();
+}
+
+no.addEventListener("mouseover",()=>{
+count++;
+msg.textContent=texts[count%texts.length];
+no.style.left=Math.random()*200+"px";
+no.style.top=Math.random()*80+"px";
+});
+
+yes.onclick=()=>{
+startMusic();
+document.getElementById("question").classList.add("hidden");
+document.getElementById("giftSection").classList.remove("hidden");
+setInterval(hearts,300);
+};
+
+function selectGift(gift){
+alert("Srishti chose: "+gift+" 💖");
+document.getElementById("giftSection").classList.add("hidden");
+document.getElementById("promiseSection").classList.remove("hidden");
+}
+
+function finalScreen(){
+document.getElementById("promiseSection").classList.add("hidden");
+document.getElementById("final").classList.remove("hidden");
+}
+
+function hearts(){
+const h=document.createElement("div");
+h.className="heart";
+h.innerText="💗";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),5000);
+}
+</script>
+
+</body>
+</html>
